@@ -1,17 +1,24 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<div id=page></div>
-
-<style>
-	#page{
-		height:100%;overflow:auto;
-	}
-</style>
-<script>
-	window.onmessage=function(e){
-	    if(e.data.content!=undefined) $('#page').html(e.data.content);
-	    if(e.data.res!=undefined) $('#page').triggerHandler('res',e.data.res);
-	};
-</script>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>body{height:100%;overflow:auto;}</style>
+		<script>
+			$(document).ready(function(){
+				window.onmessage=function(e){
+				    if(e.data.content!=undefined) $('body').html(e.data.content);
+				    if(e.data.res!=undefined) $('body').triggerHandler('res',e.data.res);
+				};
+				$('body').on('dblclick',function(event){
+					if(event.altKey){
+						id=window.location.href.split('id=').pop()
+						window.parent.postMessage({sandbox_id:'sandbox'+id,id:id,cmd:3},"*")
+					}
+				})
+			})
+		</script>
+	</head>
+	<body></body>
+</html>
